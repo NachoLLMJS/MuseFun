@@ -1,0 +1,8 @@
+{
+  "chainId": 56,
+  "chainName": "BNB Smart Chain Mainnet",
+  "rpcUrl": "https://bsc-dataseed.bnbchain.org",
+  "explorerUrl": "https://bscscan.com",
+  "registryAddress": "",
+  "registryRuntimeCodeHash": ""
+}

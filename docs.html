@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MuseFun documentation: on-chain Muses, local encrypted wallets, CLI usage, and launch routing." />
+  <title>MUSEFUN</title>
+  <link rel="icon" type="image/png" href="/assets/musefun-logo.png?v=1" />
+  <link rel="stylesheet" href="/src/docs.css" />
+</head>
+<body>
+  <header class="docs-topbar">
+    <a class="docs-brand" href="/" aria-label="Back to MuseFun"><img src="/assets/musefun-logo.png" alt="MuseFun mascot" /><span>MUSE<strong>FUN</strong></span></a>
+    <div><span class="docs-badge">Documentation</span><a class="back-link" href="/">Open app ↗</a></div>
+  </header>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <strong>GET STARTED</strong>
+      <a class="active" href="#overview">Overview</a>
+      <a href="#status">Current status</a>
+      <a href="#architecture">Architecture</a>
+      <strong>MUSES</strong>
+      <a href="#identity">Muse identity</a>
+      <a href="#wallets">Local wallets</a>
+      <a href="#cli">Terminal CLI</a>
+      <a href="#web">Web registration</a>
+      <strong>LAUNCHING</strong>
+      <a href="#four">Four.Meme</a>
+      <a href="#flap">Flap</a>
+      <a href="#safety">Safety model</a>
+      <strong>REFERENCE</strong>
+      <a href="#data">On-chain data</a>
+      <a href="#commands">Commands</a>
+      <a href="#limitations">Limitations</a>
+    </aside>
+
+    <main class="docs-content">
+      <section id="overview" class="docs-hero">
+        <span class="eyebrow">MuseFun Documentation</span>
+        <h1>Create an identity.<br><em>Launch with intent.</em></h1>
+        <p>MuseFun is a non-custodial BNB Chain interface for registering a permanent Muse identity and preparing supported token launches through Four.Meme or Flap.</p>
+        <div class="callout"><strong>Non-custodial by design.</strong> MuseFun never asks a server to hold your private key, seed phrase, or wallet password.</div>
+      </section>
+
+      <section id="status">
+        <h2>Current status</h2>
+        <p>The interface, encrypted-wallet CLI, registry contract, live protocol discovery, transaction builders, tests, and no-broadcast Mainnet preflight exist locally. The MuseRegistry address is intentionally empty until a reviewed deployment is explicitly approved.</p>
+        <div class="status-grid">
+          <article><span>READY</span><h3>Encrypted local wallets</h3><p>Keystore generation and decryption happen on the user's computer.</p></article>
+          <article><span>READY</span><h3>Registry contract build</h3><p>Permissionless registration, permanent names, metadata updates, and owner enumeration.</p></article>
+          <article class="pending"><span>LOCKED</span><h3>Mainnet writes</h3><p>Broadcast remains disabled while security findings and deployment identity are unresolved.</p></article>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <h2>Architecture</h2>
+        <ol class="steps">
+          <li><b>Wallet layer</b><span>Injected EIP-1193 wallet in the browser or an encrypted Web3 keystore in the CLI.</span></li>
+          <li><b>Muse registry</b><span>A minimal BNB Chain contract stores the canonical name, owner, metadata URI, and registration timestamps.</span></li>
+          <li><b>Protocol adapters</b><span>Four.Meme and Flap configurations are read from their live services and contracts before a route is considered.</span></li>
+          <li><b>Human confirmation</b><span>The user sees the destination, value, gas estimate, and selected configuration before any signature or broadcast.</span></li>
+        </ol>
+      </section>
+
+      <section id="identity">
+        <h2>Muse identity</h2>
+        <p>A Muse is a wallet-owned on-chain identity. The registry accepts one active Muse per wallet. Names are canonical lowercase identifiers from 3 to 32 characters using letters, numbers, hyphens, or underscores.</p>
+        <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
+          <tr><td>Name</td><td>Permanently reserved canonical Muse identifier.</td></tr>
+          <tr><td>Owner</td><td>Wallet that submitted and owns the registration.</td></tr>
+          <tr><td>Metadata URI</td><td>IPFS or HTTPS pointer controlled by the owner.</td></tr>
+          <tr><td>Registered</td><td>Timestamp stored by the registry contract.</td></tr>
+          <tr><td>Updated</td><td>Timestamp of the latest metadata update.</td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="wallets">
+        <h2>Local wallets</h2>
+        <p>The CLI creates an EVM wallet locally using cryptographically secure randomness and stores it as a password-encrypted Web3 keystore under <code>~/.musefun/wallets/</code>. Raw private keys are not printed or transmitted.</p>
+        <div class="warning"><strong>Back up both the encrypted keystore and its password.</strong> MuseFun cannot recover either one. Never paste a seed phrase or private key into a website, support chat, or command argument.</div>
+      </section>
+
+      <section id="cli">
+        <h2>Terminal CLI</h2>
+        <p>Create an encrypted local wallet:</p>
+        <pre><code>npx --yes github:NachoLLMJS/MuseFun wallet:create --name my-muse</code></pre>
+        <p>After the registry is reviewed, deployed, and pinned in the package configuration, register the Muse:</p>
+        <pre><code>npx --yes github:NachoLLMJS/MuseFun register \
+  --name my-muse \
+  --metadata-uri ipfs://YOUR_METADATA_CID</code></pre>
+        <p>The registration command verifies the chain, contract configuration, name availability, estimated gas, and final receipt before saving the transaction reference.</p>
+      </section>
+
+      <section id="web">
+        <h2>Web registration</h2>
+        <p>Connect an EIP-1193 wallet, select BNB Smart Chain Mainnet, enter a valid Muse name and metadata URI, then review the confirmation dialog. The wallet signs and broadcasts directly; the site does not receive the private key.</p>
+      </section>
+
+      <section id="four">
+        <h2>Four.Meme route</h2>
+        <p>MuseFun reads the currently published quote assets from Four.Meme. A classic launch uses the official login challenge, official image upload endpoint, backend-issued opaque creation bytes, and the documented TokenManager2 contract.</p>
+        <ul><li>Only currently published quote configurations are displayed.</li><li>Holder rewards must follow Four.Meme's supported tax allocation.</li><li>Image upload and backend preparation occur only after explicit approval.</li><li>The final contract call remains locked until the integration security gate passes.</li></ul>
+      </section>
+
+      <section id="flap">
+        <h2>Flap route</h2>
+        <p>MuseFun targets the official BNB Mainnet VaultPortal V6 flow with Tax Token V3. It checks the live quote configuration, official factory registration, dividend-token route, vanity salt, and complete calldata before signing.</p>
+        <ul><li>Supported official vaults: Split Vault and Gift Vault.</li><li>Split Vault requires 1–10 unique recipients totaling exactly 10,000 basis points.</li><li>Gift Vault requires a valid lowercase X handle.</li><li>Unsupported pairs, factories, dividend routes, or enum configurations fail closed.</li></ul>
+      </section>
+
+      <section id="safety">
+        <h2>Safety model</h2>
+        <div class="safety-list">
+          <p><b>No custody</b> — keys stay with the user.</p><p><b>No fabricated success</b> — only confirmed receipts are accepted.</p><p><b>No automatic broadcast</b> — a human confirmation is required.</p><p><b>Fail closed</b> — missing configuration, unsupported routes, wrong chains, or simulation errors stop the action.</p>
+        </div>
+      </section>
+
+      <section id="data">
+        <h2>On-chain data and Recent Muses</h2>
+        <p>Recent Muses is derived from the registry's append-only owner index and each owner's current Muse record. When the registry is not deployed, the interface shows a deployment-pending state instead of demo registrations.</p>
+      </section>
+
+      <section id="commands">
+        <h2>Command reference</h2>
+        <pre><code>npx --yes github:NachoLLMJS/MuseFun wallet:create --name &lt;muse-name&gt;
+npx --yes github:NachoLLMJS/MuseFun register --name &lt;muse-name&gt; --metadata-uri &lt;uri&gt;
+npx --yes github:NachoLLMJS/MuseFun --help</code></pre>
+      </section>
+
+      <section id="limitations">
+        <h2>Limitations</h2>
+        <p>MuseFun cannot promise every pair, dividend token, vault, or launch type. Compatibility depends on each protocol's live allowlists, quote configuration, factories, routing, liquidity, and contract version. The UI must treat live protocol state as authoritative.</p>
+      </section>
+
+      <footer>© MuseFun · BNB Chain · Non-custodial by design</footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Register your Muse and prepare launches for Four.Meme or Flap." />
+  <title>MUSEFUN</title>
+  <link rel="icon" type="image/png" href="/assets/musefun-logo.png?v=1" />
+  <link rel="preload" as="image" href="/assets/musefun-background.png" />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="MuseFun home">
+        <img src="/assets/musefun-logo.png" alt="MuseFun mascot" />
+        <span>MUSE<span class="brand-accent">FUN</span></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#launch">Launch</a>
+        <a href="#explore">Explore</a>
+        <a href="#muses" id="myMusesLink">My Muses</a>
+        <a href="/docs.html" target="_blank" rel="noopener">Docs</a>
+        <a href="/docs.html#overview" target="_blank" rel="noopener">About</a>
+        <a href="https://x.com/musefunbinance" id="twitterLink" target="_blank" rel="noopener noreferrer" aria-label="MuseFun on Twitter">Twitter</a>
+      </nav>
+      <div class="wallet-actions">
+        <button class="wallet-button" id="walletButton" type="button">
+          <span aria-hidden="true">▣</span><span id="walletLabel">Connect Wallet</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero-grid" id="launch">
+        <div class="hero-copy">
+          <h1>Register your Muse.<br><span>Launch anything.</span></h1>
+          <p>Create your Muse with one command, then launch on Four.Meme or Flap with any supported pair and dividend setup.</p>
+
+          <div class="benefits" aria-label="Product features">
+            <article><span class="benefit-icon">⌁</span><div><strong>On-chain identity</strong><small>Your Muse, yours forever</small></div></article>
+            <article><span class="benefit-icon">▥</span><div><strong>Flexible launch</strong><small>Route to Four.Meme or Flap</small></div></article>
+            <article><span class="benefit-icon">◎</span><div><strong>Holder rewards</strong><small>Use supported dividend assets</small></div></article>
+          </div>
+
+          <button class="command-box" id="copyCommand" type="button" aria-label="Copy Muse registration command">
+            <span class="prompt">›</span><code>npx --yes github:NachoLLMJS/MuseFun wallet:create --name my-muse</code><span class="copy-icon" aria-hidden="true">▣</span>
+          </button>
+        </div>
+
+        <section class="launch-card" aria-labelledby="launchTitle">
+          <div class="launch-heading">
+            <h2 id="launchTitle">Create Launch</h2>
+          </div>
+
+          <label class="step-label">1. Choose platform</label>
+          <div class="venue-tabs" role="tablist" aria-label="Launch venue">
+            <button class="venue active" type="button" role="tab" aria-selected="true" data-venue="Four.Meme"><img class="venue-logo four-logo" src="/assets/four-meme-logo.svg" alt="" />Four.Meme</button>
+            <button class="venue" type="button" role="tab" aria-selected="false" data-venue="Flap"><img class="venue-logo flap-logo" src="/assets/flap-icon.svg" alt="" />Flap</button>
+          </div>
+
+          <label class="step-label" for="museSelect">2. Select your Muse</label>
+          <div class="select-like">
+            <img src="/assets/musefun-logo.png" alt="" />
+            <select id="museSelect" aria-label="Select your Muse" disabled>
+              <option>Connect wallet to load your Muse</option>
+            </select>
+            <span class="status-chip" id="museStatus">On-chain</span>
+          </div>
+          <div class="muse-register" id="museRegister">
+            <input id="museName" type="text" minlength="3" maxlength="32" placeholder="muse-name" aria-label="Muse name" autocomplete="off" />
+            <input id="museMetadata" type="url" maxlength="256" placeholder="ipfs://metadata-cid" aria-label="Muse metadata URI" autocomplete="off" />
+            <button id="registerMuseButton" type="button">Register Muse</button>
+          </div>
+
+          <fieldset aria-label="Token details">
+            <div class="field-grid token-primary-row">
+              <label>Token Name<input id="tokenName" type="text" value="Muse Token" autocomplete="off" /></label>
+              <label class="token-upload-label">Token Image
+                <span class="token-upload-control"><input id="tokenImage" type="file" accept="image/png,image/jpeg,image/gif,image/webp,image/bmp" /><span class="upload-button">Upload image</span><span class="upload-name" id="uploadName">No file</span></span>
+              </label>
+            </div>
+            <div class="field-grid token-secondary-row">
+              <label>Ticker<input id="ticker" type="text" value="MUSE" maxlength="10" autocomplete="off" /></label>
+              <label>Metadata / Description<input id="tokenMetadata" type="text" maxlength="256" placeholder="Description for Four.Meme or IPFS CID for Flap" autocomplete="off" /></label>
+            </div>
+            <div class="field-grid three">
+              <label>Pair<select id="pair"><option value="">Loading live support…</option></select></label>
+              <label>Holder Rewards<select id="dividend"><option value="none">— None</option><option value="0x55d398326f99059ff775485246999027b3197955">USDT</option></select></label>
+              <label>Reward allocation<div class="suffix-input"><input id="dividendPercent" type="number" min="0" max="100" value="0" /><span>%</span></div></label>
+            </div>
+            <div class="field-grid two tax-controls">
+              <label>Trading tax<select id="taxRate"><option value="0">None</option><option value="1">1%</option><option value="3">3%</option><option value="5">5%</option><option value="10">10%</option></select></label>
+              <label>Initial Buy <span class="optional">(Optional)</span><div class="suffix-input"><input id="initialBuy" type="number" min="0" step="0.01" value="0.1" /><span>BNB</span></div></label>
+              <label id="vaultLabel" hidden>Flap Vault<select id="vaultFactory"><option value="0xfab75Dc774cB9B38b91749B8833360B46a52345F">Official Split Vault</option><option value="0x025549F52B03cF36f9e1a337c02d3AA7Af66ab32">Official Gift Vault</option></select></label>
+              <label id="giftHandleLabel" hidden>Gift Vault X handle<input id="giftHandle" type="text" maxlength="15" placeholder="lowercase, without @" autocomplete="off" /></label>
+            </div>
+          </fieldset>
+
+          <button class="launch-button" id="launchButton" type="button">Launch Token</button>
+          <p class="form-note" id="formNote">Your wallet signs directly. MuseFun never stores your key.</p>
+        </section>
+      </section>
+
+      <section class="dashboard-strip">
+        <section class="surface featured" id="explore">
+          <div class="section-heading"><div><h2>Muse Archetypes</h2><p>Visual directions, not fabricated registrations.</p></div><button type="button">View all&nbsp; →</button></div>
+          <div class="muse-grid">
+            <article class="muse-card"><img src="/assets/chill-muse.png" alt="Chill Muse archetype wearing black sunglasses" /><div class="card-copy"><strong>Chill</strong><small>Archetype</small><div><span>Memes</span><span>Chill</span></div></div></article>
+            <article class="muse-card"><img src="/assets/builder-muse.png" alt="Builder Muse archetype wearing a yellow construction helmet" /><div class="card-copy"><strong>Builder</strong><small>Archetype</small><div><span>Build</span><span>Community</span></div></div></article>
+            <article class="muse-card"><img src="/assets/degen-muse.png" alt="Degen Muse archetype wearing a black hood" /><div class="card-copy"><strong>Degen</strong><small>Archetype</small><div><span>Charts</span><span>Trading</span></div></div></article>
+            <article class="muse-card"><img src="/assets/hodl-muse.png" alt="Hodl Muse archetype holding a gold coin" /><div class="card-copy"><strong>Hodl</strong><small>Archetype</small><div><span>Hodl</span><span>Rewards</span></div></div></article>
+          </div>
+        </section>
+
+        <section class="surface recent" id="muses">
+          <div class="section-heading"><div><h2>Recent Muses</h2><p>Recently registered on MuseFun.</p></div><button type="button">View all&nbsp; →</button></div>
+          <div class="launch-table" id="recentMuses" role="table" aria-label="Recent Muses registered on MuseFun">
+            <div class="table-row table-head" role="row"><span>MUSE</span><span>OWNER</span><span>REGISTERED</span><span>NETWORK</span><span>STATUS</span></div>
+            <div class="empty-launches">
+              <span class="empty-orbit">✦</span>
+              <div><strong>No registered Muses yet</strong><small>Confirmed on-chain registrations will appear here.</small></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="muse-modal" id="myMusesModal" aria-labelledby="myMusesTitle">
+    <div class="muse-modal-head">
+      <div><span class="modal-kicker">ON-CHAIN IDENTITY</span><h2 id="myMusesTitle">My Muses</h2></div>
+      <button class="modal-close" id="closeMyMuses" type="button" aria-label="Close My Muses">×</button>
+    </div>
+    <div class="muse-modal-body" id="myMusesContent">
+      <div class="my-muse-empty">
+        <img src="/assets/musefun-logo.png" alt="" />
+        <div><strong>Connect your wallet</strong><p>Your confirmed BNB Chain Muse will appear here.</p></div>
+      </div>
+    </div>
+    <div class="muse-modal-actions">
+      <button class="modal-wallet" id="modalWalletButton" type="button">Connect Wallet</button>
+      <a href="/docs.html#identity" target="_blank" rel="noopener">How Muses work ↗</a>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

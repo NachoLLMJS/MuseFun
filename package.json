@@ -1,0 +1,39 @@
+{
+  "name": "musefun-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Non-custodial CLI for MuseFun identities on BNB Chain",
+  "license": "MIT",
+  "bin": {
+    "musefun": "cli/musefun.mjs"
+  },
+  "files": [
+    "cli/",
+    "contracts/MuseRegistry.sol",
+    "config/",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs",
+    "musefun": "node cli/musefun.mjs",
+    "contracts:compile": "node scripts/compile-registry.mjs",
+    "preflight:mainnet": "npm run contracts:compile && node scripts/preflight-mainnet.mjs",
+    "contracts:deploy:mainnet": "node scripts/deploy-registry.mjs"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.8.6",
+    "commander": "^14.0.1",
+    "ethers": "^6.15.0"
+  },
+  "devDependencies": {
+    "hardhat": "3.17.0",
+    "solc": "0.8.37",
+    "vite": "^7.1.7"
+  },
+  "overrides": {
+    "tmp": "0.2.7"
+  }
+}

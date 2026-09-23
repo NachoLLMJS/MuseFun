@@ -1,0 +1,34 @@
+{
+  "chainId": 56,
+  "verifiedAtBlock": 123532144,
+  "eip1967ImplementationSlot": "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc",
+  "contracts": {
+    "fourTokenManager2": {
+      "address": "0x5c952063c7fc8610FFDB798152D69F0B9550762b",
+      "runtimeCodeHash": "0xf035b164f546d628163baa4d5428649ad6728453a19e4af6ba602a713b6d9f08",
+      "implementation": "0xF32eE25A7A94F5858692B90815493bDA9f992eee",
+      "implementationCodeHash": "0x07eb30d004f7e1b214a2b5c9704e2c7866648b65d1ffeb0c38fd54b5512f030e"
+    },
+    "flapPortal": {
+      "address": "0xe2cE6ab80874Fa9Fa2aAE65D277Dd6B8e65C9De0",
+      "runtimeCodeHash": "0x0a3fe6f701ee3cb432f45912e054896327ce5902337eae4d62d01406005a91c3",
+      "implementation": "0x27a0f9Da7F5BEAd616fe0bf02bf0c793bece4e20",
+      "implementationCodeHash": "0xb191694f7248773f714234aeb150149a2b9af5d1ab483a53d31c19ec3132b230"
+    },
+    "flapVaultPortal": {
+      "address": "0x90497450f2a706f1951b5bdda52B4E5d16f34C06",
+      "runtimeCodeHash": "0xf621f30c3a81d94398018701330fe848452f19c9865bf3437a6dd666977b01fe",
+      "implementation": "0x111C157a0Ed15a36797f4455e988254d1Ee93284",
+      "implementationCodeHash": "0x54c8e95384cf53c217c4f7ea6e3b4860374a110f3618952ea6e778cd77ff41e7"
+    },
+    "flapSwapRegistry": {
+      "address": "0x644A8f560138418bAD4EdEFC7c17878a3c2fBEB6",
+      "runtimeCodeHash": "0x8b8a33e2eea777793a6fc1e5a3359a22c10d286343ce2480531cf85ed32a7a48",
+      "implementation": "0x9a681bC1350636BBf81085207cde7485dAa67a65",
+      "implementationCodeHash": "0xef045ff468b7d61e1dede9aab602aec80f49f559f1e6f2958e94b52375ad2f23"
+    },
+    "flapTaxV3": { "address": "0x024f18294970B5c76c0691b87f138A0317156422", "runtimeCodeHash": "0xb530a7e0ff0d6ab435a5ec71f2b04092937735e23a0fb3a0746724ce9b875b4a" },
+    "splitFactory": { "address": "0xfab75Dc774cB9B38b91749B8833360B46a52345F", "runtimeCodeHash": "0x74536bf63150b2874f086852b93c0b597ce0490c1ffa8c234dc4d602249db58c" },
+    "giftFactory": { "address": "0x025549F52B03cF36f9e1a337c02d3AA7Af66ab32", "runtimeCodeHash": "0xbea75ebd933f171c914693c59b894a9ab2f9defadbc131388e9c3bbb2251430f" }
+  }
+}
