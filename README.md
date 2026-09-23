@@ -1,5 +1,8 @@
 # MuseFun
 
+- Live app: https://musefun-six.vercel.app
+- Documentation: https://musefun-six.vercel.app/docs.html
+
 MuseFun is a non-custodial Muse identity registry and launcher interface for BNB Chain.
 
 ## Security model
